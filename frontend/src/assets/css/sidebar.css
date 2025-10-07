@@ -1,0 +1,31 @@
+.sidebar
+{
+    height: 100vh;
+    max-width: 200px;
+    position: fixed;
+
+  
+    background: linear-gradient(135deg, #74b5d5, #1e90bb);
+
+}
+.sidebar .row
+{
+    padding: 10px;
+}
+.sidebar-content
+{
+    margin-top: 80px;
+    color:white;
+    font-weight: 500;
+    cursor: pointer;
+    
+}
+.links-sidebar
+{
+    color: aliceblue;
+    text-decoration: none;
+}
+.sidebar-content
+:hover{
+    background-color: rgb(79, 145, 176);
+}

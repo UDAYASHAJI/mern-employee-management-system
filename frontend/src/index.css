@@ -1,0 +1,146 @@
+*
+{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.container-signup
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; height: 100vh;
+}
+.signup-h1 
+
+{
+  color: rgb(34, 34, 90);
+  font-weight: 300;
+}
+.changepass-box
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+.changepass-form {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 150px;
+  margin-bottom: 150px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #22225a; /* Clinical Vista blue */
+}
+
+.changepass-input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.changepass-input:focus {
+  border-color: #1e90bb; /* highlight Clinical Vista blue */
+  box-shadow: 0 0 6px rgba(30, 144, 187, 0.4);
+}
+
+.changepass-button {
+  background: linear-gradient(135deg, #74b5d5, #1e90bb);
+  border: none;
+ color: #f9f8f8;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-button:hover {
+  background: linear-gradient(135deg, #1e90bb, #155a8a);
+}
+.table-container {
+  margin: 20px 0;
+  padding: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.table-home {
+
+  border-collapse: collapse;
+  margin-left: 250px;
+  font-size: 14px;
+  text-align: left;
+  table-layout: auto; 
+}
+
+.table-home thead {
+  background-color: #007bff;
+  color: #2a2323;
+}
+
+.table-home th,
+.table-home td {
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  white-space: nowrap; /* keeps text in one line */
+}
+
+.table-home tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-home tr:hover {
+  background-color: #dfe2e6;
+color: #0f0f10;
+  transition: background 0.3s ease-in-out;
+}
+
+.table-home th {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.table-home td {
+  vertical-align: middle;
+}
+
+.table-home .btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Make it scrollable on smaller screens */
+.table-responsive {
+  overflow-x: auto;
+}
+

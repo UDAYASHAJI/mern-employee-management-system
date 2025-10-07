@@ -1,0 +1,23 @@
+.signup-button {
+    background: linear-gradient(135deg, #74b5d5, #1e90bb);
+    border: none;
+   color: #f9f8f8;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+ 
+
+  }
+  
+  .login-button:hover {
+    background: linear-gradient(135deg, #1e90bb, #155a8a);
+  }
+
+  .modal-body
+  {
+    padding: 60px;
+
+  }

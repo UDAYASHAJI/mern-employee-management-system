@@ -1,0 +1,33 @@
+/* src/assets/css/custom-toast.css */
+
+/* No longer styling the .Toastify__toast directly.
+   React-Toastify will handle the main toast container's appearance. */
+
+/* Styles for the content wrapper inside the toast */
+.custom-toast-content-wrapper {
+    display: flex;
+    align-items: center; /* Vertically align logo and text */
+    gap: 10px; /* Space between logo and message */
+    padding: 5px; /* Add some internal padding if needed */
+  }
+  
+  .custom-toast-logo img {
+    width: 60px; /* Keep logo small for a standard toast */
+    height: 60px;
+    /* You might want to remove .App-logo if it applies conflicting global styles */
+  }
+  
+  .custom-toast-message p {
+    margin: 0; /* Remove default paragraph margin */
+    font-size: 16px; /* Standard toast font size */
+    color: inherit; /* Inherit text color from toast theme */
+    font-weight: normal; /* Reset font weight if needed */
+  }
+  
+  /* Optional: Adjust for smaller screens if necessary, though default toasts are usually responsive */
+  @media only screen and (max-width: 600px) {
+    .custom-toast-content-wrapper {
+      flex-direction: column; /* Stack logo and message on small screens */
+      text-align: center;
+    }
+  }

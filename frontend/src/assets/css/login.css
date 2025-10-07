@@ -1,0 +1,129 @@
+
+.contain-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  height: 100vh;
+}
+
+.login-h1 {
+  color: rgb(34, 34, 90);
+  font-weight: 600;
+  font-size: x-large;
+}
+
+.left-section {
+  background: linear-gradient(135deg, #74b5d5, #1e90bb);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;  /* stack image + heading */
+  align-items: center;     /* center horizontally */
+  justify-content: center; /* center vertically */
+  text-align: center;
+  padding: 20px;
+}
+
+.left-section h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  font-size: 28px;
+  color: white;
+  margin:  0 0 0; /* small space above heading */
+}
+
+.login-img {
+  max-width: 60%; 
+  height: auto; 
+  display: block;
+  margin: 0 auto 200px auto; /* center and add space below */
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  margin: 50px;;
+}
+.left-section p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #e6faff;
+  margin-top: 10px;
+}
+
+/* .login-form {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 150px;
+  margin-top: 0px;
+}
+ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #22225a; /* Clinical Vista blue */
+}
+
+.login-input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.login-input-type
+{
+  margin-left: 20px;
+}
+.login-input::placeholder
+{
+  padding: 20px;
+}
+
+.login-input:focus {
+  border-color: #1e90bb; /* highlight Clinical Vista blue */
+  box-shadow: 0 0 6px rgba(30, 144, 187, 0.4);
+}
+
+.login-button {
+  background: linear-gradient(135deg, #74b5d5, #1e90bb);
+  border: none;
+ color: #f9f8f8;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-button:hover {
+  background: linear-gradient(135deg, #1e90bb, #155a8a);
+}
+.login-logo {
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 0px;
+  margin-left: 300px;
+}
+
+.login-box
+{
+height: 200px;
+margin-bottom: 200px;
+}
+a{
+  text-decoration: none;
+  font-weight: 400;
+  color: #1b5775;
+}
