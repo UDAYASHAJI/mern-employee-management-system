@@ -1,0 +1,114 @@
+/* ========== Userhome Page Styling ========== */
+
+.userhome-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .userhome-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 40px 60px;
+    max-width: 800px;
+    margin: 40px auto;
+    transition: all 0.3s ease;
+  }
+  
+  .profile-container:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+  
+  .profile-container h2 {
+    font-weight: 600;
+    color: #1e90ff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .profile-item {
+    font-size: 16px;
+    margin: 15px 0;
+    padding: 12px 20px;
+    background: #f6f8fa;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .profile-item strong {
+    color: #333;
+  }
+  
+  .status-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 8px;
+  }
+  
+  .status-active {
+    background-color: green;
+  }
+  
+  .status-inactive {
+    background-color: red;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-danger {
+    color: red;
+    font-weight: 500;
+  }
+  .profile-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 40px 60px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .profile-container h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .profile-item {
+    margin-bottom: 18px;
+    font-size: 18px;
+    color: #444;
+  }
+  
+  .profile-item strong {
+    width: 180px;
+    display: inline-block;
+    color: #222;
+  }
+  
+  .status-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 8px;
+  }
+  

@@ -3,19 +3,19 @@ import Sidebar from "../../Components/ui/Sidebar";
 import Header from "../../Components/ui/Header";
 import Footer from "../../Components/ui/Footer";
 import Signup from "../authentication/Signup";
-import EditEmployee from "./EditEmployee"; // ✅ import Edit modal
+import EditEmployee from "./EditEmployee"; 
 import "../../assets/css/signup.css";
 import axios from "axios";
 
 function Home() {
   const [showSignup, setShowSignup] = useState(false);
-  const [showEdit, setShowEdit] = useState(false); // ✅ new state for edit modal
-  const [employeeToEdit, setEmployeeToEdit] = useState(null); // ✅ selected employee
+  const [showEdit, setShowEdit] = useState(false); 
+  const [employeeToEdit, setEmployeeToEdit] = useState(null); 
   const [employees, setEmployees] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [employeeToDelete, setEmployeeToDelete] = useState(null);
 
-  // Fetch employees from backend
+  
   useEffect(() => {
     fetchEmployees();
   }, []);
@@ -57,7 +57,7 @@ function Home() {
     setShowEdit(true);
   };
 
-  // Toggle Active/Inactive
+
   const toggleStatus = async (id) => {
     try {
       setEmployees((prev) =>

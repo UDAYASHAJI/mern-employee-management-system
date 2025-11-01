@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import Sidebar from '../../Components/ui/Sidebar'
-import Header from '../../Components/ui/Header'
-import Footer from '../../Components/ui/Footer'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Sidebar from '../../Components/ui/Sidebar';
+import Header from '../../Components/ui/Header';
+import Footer from '../../Components/ui/Footer';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Leaverequest() {
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch leaves from backend
+ 
   const fetchLeaves = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/leave");
       if (response.data.success) {
-        // Add default approval status if not provided
         const leavesWithStatus = response.data.allreq.map(leave => ({
           ...leave,
           approval: leave.approval || "Pending"
@@ -21,9 +22,11 @@ function Leaverequest() {
         setLeaveRequests(leavesWithStatus);
       } else {
         console.error(response.data.message || "Failed to fetch leaves");
+        toast.error(response.data.message || "Failed to fetch leaves");
       }
     } catch (err) {
       console.error("Error fetching leave requests:", err);
+      toast.error("Failed to fetch leave requests");
     } finally {
       setLoading(false);
     }
@@ -33,22 +36,45 @@ function Leaverequest() {
     fetchLeaves();
   }, []);
 
-  // Toggle approval status
-  const toggleApproval = (index) => {
-    setLeaveRequests(prev =>
-      prev.map((leave, i) =>
-        i === index
-          ? { ...leave, approval: leave.approval === "Pending" ? "Approved" : "Pending" }
-          : leave
-      )
-    );
+
+  const toggleApproval = async (leave) => {
+    const newStatus = leave.approval === "Pending" ? "Approved" : "Pending";
+
+    try {
+      const res = await axios.put(`http://localhost:3000/api/leave/${leave._id}/approval`, {
+        approval: newStatus
+      });
+
+      if (res.data.success) {
+        toast.success(res.data.message || "Approval status updated");
+        setLeaveRequests(prev =>
+          prev.map(l => l._id === leave._id ? { ...l, approval: newStatus } : l)
+        );
+      }
+    } catch (err) {
+      console.error("Failed to update approval:", err);
+      toast.error("Failed to update approval status");
+    }
+  };
+
+  // Delete leave request
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this leave request?")) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/api/leave/${id}`);
+      toast.success("Leave request deleted successfully");
+      setLeaveRequests(prev => prev.filter(leave => leave._id !== id));
+    } catch (err) {
+      console.error("Failed to delete leave request:", err);
+      toast.error("Failed to delete leave request");
+    }
   };
 
   return (
     <div>
       <Sidebar />
       <Header />
-      <Footer />
 
       <div className="table-responsive table-container">
         {loading ? (
@@ -64,12 +90,13 @@ function Leaverequest() {
                 <th>Leave Type</th>
                 <th>Reason</th>
                 <th>Approval</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {leaveRequests.length > 0 ? (
-                leaveRequests.map((leave, index) => (
-                  <tr key={index}>
+                leaveRequests.map((leave) => (
+                  <tr key={leave._id}>
                     <td>{leave.name}</td>
                     <td>{leave.email}</td>
                     <td>{new Date(leave.datestart).toLocaleDateString()}</td>
@@ -78,19 +105,25 @@ function Leaverequest() {
                     <td>{leave.reason}</td>
                     <td>
                       <button
-                        className={`btn btn-sm ${
-                          leave.approval === "Approved" ? "btn-success" : "btn-warning"
-                        }`}
-                        onClick={() => toggleApproval(index)}
+                        className={`btn btn-sm ${leave.approval === "Approved" ? "btn-success" : "btn-warning"}`}
+                        onClick={() => toggleApproval(leave)}
                       >
                         {leave.approval}
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => handleDelete(leave._id)}
+                      >
+                        Delete
                       </button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7" className="text-center">
+                  <td colSpan="8" className="text-center">
                     No leave requests found
                   </td>
                 </tr>
@@ -99,8 +132,11 @@ function Leaverequest() {
           </table>
         )}
       </div>
+
+      <Footer />
+      <ToastContainer position="top-right" autoClose={3000} theme="light" />
     </div>
-  )
+  );
 }
 
-export default Leaverequest
+export default Leaverequest;

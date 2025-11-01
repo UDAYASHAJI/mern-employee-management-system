@@ -2,18 +2,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 import Spinner from "../../Components/ui/Spinner";
 import img from "../../assets/img/login/login.jpeg";
 import "../../assets/css/login.css";
 import logo from "../../assets/img/login/WorkHub.png";
 import { FaEye, FaEyeSlash, FaUser, FaLock } from "react-icons/fa";
-import Footer from "../../Components/ui/Footer";
 import Sidebar from "../../Components/ui/Sidebar";
 import CustomToastContent from "../../Components/ui/CustomToast";
 import { toast, ToastContainer } from "react-toastify";
-import { MdSupportAgent } from "react-icons/md";
-import { FaRegCommentDots } from "react-icons/fa";
 
 function Login() {
   const [loader, setLoader] = useState(false);
@@ -32,54 +30,91 @@ function Login() {
     validationSchema,
     onSubmit: async (values) => {
       setLoader(true);
-      setTimeout(() => setLoader(false), 2000);
 
+      // 🔹 1️⃣ Default Admin Login Check
+      if (
+        values.email === "admin@webhub" &&
+        values.password === "Admin@123"
+      ) {
+        localStorage.setItem("email", "admin@webhub");
+        localStorage.setItem("fullname", "Administrator");
+        localStorage.setItem("role", "admin");
+        localStorage.setItem("token", "default-admin-token");
+
+        toast.success(
+          <CustomToastContent
+            type="success"
+            message="Admin login successful"
+          />
+        );
+
+        setLoader(false);
+        setTimeout(() => navigate("/home"), 1000);
+        return; // ✅ stop here, no backend call needed
+      }
+
+      // 🔹 2️⃣ Normal API Login Flow
       try {
-        const response = await fetch("http://localhost:3000/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
+        const response = await axios.post(
+          "http://localhost:3000/api/login",
+          values
+        );
+        const result = response.data;
+        console.log("Login response:", result);
 
-
-
-
-
-
-        const result = await response.json().catch(() => ({}));
-        if (result.success) {
-          toast.success(
-            <CustomToastContent
-              type="success"
-              message={result.message || "Login successful"}
-            />
-          );
-          localStorage.setItem("loggedInUser", result.fullname);
-          localStorage.setItem("loggedInemail", result.email);
-
-
-          localStorage.setItem("token", result.jwtToken);
-        
-          console.log(result.name)
-             setTimeout(() => navigate("/home"), 2000);
-          
-         
-        } 
-        else {
+        if (!result.success) {
           toast.error(
             <CustomToastContent
               type="error"
               message={result.message || "Invalid email or password"}
             />
           );
+          setLoader(false);
+          return;
         }
+
+        // Ensure email exists
+        const emailToStore =
+          result.email || (result.role === "admin" ? "admin@webhub" : null);
+        if (!emailToStore) {
+          toast.error(
+            <CustomToastContent
+              type="error"
+              message="Login failed. Email missing from response."
+            />
+          );
+          setLoader(false);
+          return;
+        }
+
+        // Save info
+        localStorage.setItem("email", emailToStore);
+        localStorage.setItem("fullname", result.fullname || "Admin");
+        localStorage.setItem("role", result.role || "user");
+        localStorage.setItem("token", result.jwtToken || "");
+
+        toast.success(
+          <CustomToastContent
+            type="success"
+            message={result.message || "Login successful"}
+          />
+        );
+
+        // Redirect based on role
+        setTimeout(() => {
+          if (result.role === "admin") navigate("/home");
+          else navigate("/profile");
+        }, 1000);
       } catch (err) {
+        console.error("Login error:", err);
         toast.error(
           <CustomToastContent
             type="error"
             message="Something went wrong. Please try again later."
           />
         );
+      } finally {
+        setLoader(false);
       }
     },
   });
@@ -87,7 +122,7 @@ function Login() {
   return (
     <div>
       <div className="row g-0">
-      
+        {/* Left Section */}
         <div className="col-12 col-md-6 left-section text-center p-0">
           <img src={img} alt="Welcome" className="login-img" />
           <div className="overlay-text px-4">
@@ -99,7 +134,7 @@ function Login() {
           </div>
         </div>
 
-     
+        {/* Right Section - Login Form */}
         <div className="col-12 col-md-6 d-flex justify-content-center">
           <div
             className="container-login w-100 d-flex flex-column justify-content-center"
@@ -114,6 +149,13 @@ function Login() {
             <form onSubmit={formik.handleSubmit} className="login-form">
               <h1 className="login-h1 text-center mb-4">Login</h1>
 
+              {loader && (
+                <div className="text-center mb-3">
+                  <Spinner />
+                </div>
+              )}
+
+              {/* Email Field */}
               <div className="form-group mb-4">
                 <label>Email</label>
                 <input
@@ -121,24 +163,27 @@ function Login() {
                   name="email"
                   className="form-control login-input"
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.email}
-                  placeholder="Username"
+                  placeholder="Email"
                   style={{ paddingLeft: "35px" }}
                 />
                 <FaUser
                   style={{
-                    color: "1e90bb",
+                    color: "#1e90bb",
                     position: "relative",
                     bottom: "27px",
                     left: "10px",
                   }}
                 />
                 {formik.touched.email && formik.errors.email && (
-                  <div className="text-danger small">{formik.errors.email}</div>
+                  <div className="text-danger small">
+                    {formik.errors.email}
+                  </div>
                 )}
               </div>
 
-            
+              {/* Password Field */}
               <div className="form-group mb-4" style={{ position: "relative" }}>
                 <label>Password</label>
                 <input
@@ -146,13 +191,14 @@ function Login() {
                   name="password"
                   className="form-control login-input"
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.password}
                   placeholder="Password"
                   style={{ paddingLeft: "35px" }}
                 />
                 <FaLock
                   style={{
-                    color: "1e90bb",
+                    color: "#1e90bb",
                     position: "relative",
                     bottom: "27px",
                     left: "10px",
@@ -181,15 +227,14 @@ function Login() {
               <button
                 type="submit"
                 className="btn login-button text-white w-100 mt-4"
+                disabled={loader}
               >
-                Login
+                {loader ? "Logging in..." : "Login"}
               </button>
             </form>
           </div>
         </div>
       </div>
-
-      {loader && <Spinner />}
 
       <ToastContainer position="top-right" autoClose={3000} theme="light" />
       <Sidebar />

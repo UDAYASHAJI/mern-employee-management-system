@@ -53,6 +53,53 @@ const showleavereq=async(req,res)=>{
 
 }
 
+const deleteLeave = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const leave = await LeaveModel.findByIdAndDelete(id);
+
+        if (!leave) {
+            return res.status(404).json({
+                message: "Leave request not found",
+                success: false
+            });
+        }
+
+        res.status(200).json({
+            message: "Leave request deleted successfully",
+            success: true,
+            leave
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: "Failed to delete leave request",
+            success: false,
+            error: err.message
+        });
+    }
+};
+
+const updateApproval = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { approval } = req.body; 
+
+        const leave = await LeaveModel.findByIdAndUpdate(
+            id,
+            { approval },
+            { new: true } 
+        );
+
+        if (!leave) {
+            return res.status(404).json({ message: "Leave request not found", success: false });
+        }
+
+        res.status(200).json({ message: "Approval status updated", success: true, leave });
+    } catch (err) {
+        res.status(500).json({ message: "Failed to update approval", success: false, error: err.message });
+    }
+};
 
 
-module.exports={leaverequest,showleavereq}
+
+module.exports={leaverequest,showleavereq,deleteLeave,updateApproval}
