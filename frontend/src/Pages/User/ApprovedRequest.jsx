@@ -48,7 +48,7 @@ function ApprovedRequest() {
     fetchApprovedRequests();
   }, []);
 
-  // 🌤️ Inline styles (Sky blue theme)
+
   const styles = {
     container: {
       flex: 1,
