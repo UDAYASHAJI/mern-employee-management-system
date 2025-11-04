@@ -7,6 +7,7 @@ import ChangePassword from './Pages/Admin/ChangePassword'
 import Leave from './Pages/User/Leave'
 import Leaverequest from './Pages/Admin/Leaverequest'
 import Userhome from './Pages/User/Userhome'
+import ApprovedRequest from './Pages/User/ApprovedRequest'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path='/leave' element={<Leave/>}/>
       <Route path='/leave-request' element={<Leaverequest/>}/>
       <Route path='/profile' element={<Userhome/>}/>
+      <Route path='/approvedrequest' element={<ApprovedRequest/>}/>
 
       
 

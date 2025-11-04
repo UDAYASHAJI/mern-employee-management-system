@@ -57,7 +57,7 @@ function Leaverequest() {
     }
   };
 
-  // Delete leave request
+ 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this leave request?")) return;
 
@@ -140,3 +140,6 @@ function Leaverequest() {
 }
 
 export default Leaverequest;
+
+
+

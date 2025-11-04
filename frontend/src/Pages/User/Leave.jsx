@@ -28,7 +28,6 @@ function Leave() {
     reason: ""
   });
 
-  // Pre-fill name and email from localStorage
   useEffect(() => {
     const userName = localStorage.getItem("loggedInUser") || "";
     const userEmail = localStorage.getItem("email") || "";
@@ -55,15 +54,13 @@ function Leave() {
 
   return (
     <div className="dashboard-wrapper" style={{ display: 'flex', minHeight: '100vh' }}>
-      {/* Sidebar */}
+     
       <UserSidebar />
 
-      {/* Main content */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* Header at the top */}
+        
         <Header />
 
-        {/* Leave form content */}
         <div
           className="leave-form-container"
           style={{

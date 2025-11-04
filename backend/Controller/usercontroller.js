@@ -2,7 +2,6 @@ const UserModel = require('../Models/userSchema');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
-// Create user
 const createuser = async (req, res) => {
   const { fullname, address, number, dob, role, email, password } = req.body;
 
@@ -19,13 +18,12 @@ const createuser = async (req, res) => {
   }
 };
 
-// Login user
+
 const loginuser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const enteredEmail = email.trim();
 
-    // Admin login
     if (enteredEmail.toLowerCase() === "admin@webhub") {
       if (password === "Admin@123") {
         const token = jwt.sign(
@@ -60,7 +58,6 @@ const loginuser = async (req, res) => {
   }
 };
 
-// Get all users
 const getUsers = async (req, res) => {
   try {
     const users = await UserModel.find();
@@ -70,7 +67,7 @@ const getUsers = async (req, res) => {
   }
 };
 
-// Get user by email
+
 const getUserByEmail = async (req, res) => {
   try {
     const { email } = req.params;
@@ -86,7 +83,7 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
-// Delete user
+
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -98,7 +95,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// Update user
+
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -120,7 +117,6 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Toggle user status
 const toggleUserStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -136,7 +132,6 @@ const toggleUserStatus = async (req, res) => {
   }
 };
 
-// Change password
 const changePassword = async (req, res) => {
   try {
     const { oldpassword, newpassword } = req.body;
@@ -162,7 +157,7 @@ module.exports = {
   createuser,
   loginuser,
   getUsers,
-  getUserByEmail,   // <-- added
+  getUserByEmail,   
   deleteUser,
   updateUser,
   toggleUserStatus,

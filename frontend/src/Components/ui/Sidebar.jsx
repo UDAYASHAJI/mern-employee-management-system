@@ -33,12 +33,12 @@ function Sidebar() {
             <div className="col-md-10"> Leave Requests</div>
           </Link>
 
-          <Link to="/change-password" className="row sidebar-content links-sidebar">
+          {/* <Link to="/change-password" className="row sidebar-content links-sidebar">
             <div className="col-md-2">
               <FaLock size={25} />
             </div>
             <div className="col-md-10">Change Password</div>
-          </Link>
+          </Link> */}
 
           <div
             className="row sidebar-content links-sidebar"
